@@ -2,7 +2,7 @@
 
 namespace GameZone.Models
 {
-    public class Categore :BaseEntity
+    public class Category :BaseEntity
     {
         public ICollection<Game> Games { get; set; } = new List<Game>();
     }
