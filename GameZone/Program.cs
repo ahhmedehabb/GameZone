@@ -1,5 +1,6 @@
 
 
+using GameZone.IServices;
 using Microsoft.Extensions.Options;
 using System;
 
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICategoriesServices,CategoriesServices>();
+builder.Services.AddScoped<IDevicesServices, DevicesServices>();
+
 
 var app = builder.Build();
 

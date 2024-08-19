@@ -1,22 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-
+﻿
 namespace GameZone.ViewModels
 {
-    public class CreateGameFormViewModel
-    {
-        [MaxLength(256)]
-        public string Name { get; set; } = string.Empty;
+	public class CreateGameFormViewModel
+	{
+		[MaxLength(256)]
+		public string Name { get; set; } = string.Empty;
+		[Display(Name="Category")]
+		public int CategoryId { get; set; }
+		public IEnumerable<SelectListItem> Categories { get; set; }=Enumerable.Empty<SelectListItem>();
+		[Display(Name = "Supported Devices")]
 
-        public int CategoryId { get; set; }
-        public IEnumerable<SelectListItem> Categories { get; set; }=Enumerable.Empty<SelectListItem>();
+		public List<int> SelectedDevices { get; set; }=new List<int>();
 
-        public List<int> SelectedDevices { get; set; }=new List<int>();
+		public IEnumerable<SelectListItem> Devices { get; set; } = Enumerable.Empty<SelectListItem>();
 
-        public IEnumerable<SelectListItem> Devices { get; set; } = Enumerable.Empty<SelectListItem>();
+		[MaxLength(2500)]
+		public string Description { get; set; } = string.Empty;
 
-        [MaxLength(2500)]
-        public string Description { get; set; } = string.Empty;
-
-        public IFormFile Cover { get; set; } = default!;
-    }
+		public IFormFile Cover { get; set; } = default!;
+	}
 }
