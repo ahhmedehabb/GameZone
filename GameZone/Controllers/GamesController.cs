@@ -1,12 +1,9 @@
 ﻿
-
-
-
-using GameZone.IServices;
-
 namespace GameZone.Controllers
 {
-	public class GamesController(IDevicesServices devicesServices,ICategoriesServices CategoriesServices) : Controller
+	public class GamesController(IDevicesService devicesServices,
+		ICategoriesService CategoriesServices,
+		IGamesService gamesServices) : Controller
 	{
 		public IActionResult Index()
 		{
@@ -27,7 +24,7 @@ namespace GameZone.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create(CreateGameFormViewModel model)
+		public async Task<IActionResult> Create(CreateGameFormViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -35,9 +32,7 @@ namespace GameZone.Controllers
 				model.Devices = devicesServices.GetSelectList();
 				return View(model);
 			}
-			//save game to database 
-
-			//save cover to server 
+			await gamesServices.Create(model);
 
 
 			return RedirectToAction(nameof(Index));

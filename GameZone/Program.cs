@@ -1,9 +1,3 @@
-
-
-using GameZone.IServices;
-using Microsoft.Extensions.Options;
-using System;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,8 +9,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ICategoriesServices,CategoriesServices>();
-builder.Services.AddScoped<IDevicesServices, DevicesServices>();
+builder.Services.AddScoped<ICategoriesService,CategoriesService>();
+builder.Services.AddScoped<IDevicesService, DevicesService>();
+builder.Services.AddScoped<IGamesService, GamesService>();
+
 
 
 var app = builder.Build();

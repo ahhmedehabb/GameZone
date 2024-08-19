@@ -1,6 +1,6 @@
 ﻿namespace GameZone.IServices
 {
-	public interface IDevicesServices
+	public interface IDevicesService
 	{
 		IEnumerable<SelectListItem> GetSelectList();
 	}
