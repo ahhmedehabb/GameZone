@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace GameZone.Services
 {
 	public class GamesService : IGamesService
@@ -33,6 +34,12 @@ namespace GameZone.Services
 			};
 			_dbContext.Add(game);
 			_dbContext.SaveChanges();
+		}
+
+		public IEnumerable<Game> GetAll()
+		{
+			return _dbContext.Games.Include(g => g.Category)
+				.Include(d=>d.Devices).ThenInclude(d=>d.device).AsNoTracking().ToList();
 		}
 	}
 }

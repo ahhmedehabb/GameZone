@@ -5,12 +5,12 @@ namespace GameZone.Controllers
 		ICategoriesService CategoriesServices,
 		IGamesService gamesServices) : Controller
 	{
-		public IActionResult Index()
-		{
-			return View();
-		}
+        public IActionResult Index()
+        {
+            return View(gamesServices.GetAll());
+        }
 
-		[HttpGet]
+        [HttpGet]
 		public IActionResult Create()
 		{
 
