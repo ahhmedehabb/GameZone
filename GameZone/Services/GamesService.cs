@@ -41,5 +41,11 @@ namespace GameZone.Services
 			return _dbContext.Games.Include(g => g.Category)
 				.Include(d=>d.Devices).ThenInclude(d=>d.device).AsNoTracking().ToList();
 		}
+
+		public Game? getById(int id)
+		{
+			return _dbContext.Games.Include(g => g.Category)
+				.Include(d => d.Devices).ThenInclude(d => d.device).AsNoTracking().SingleOrDefault(g=>g.Id==id);
+		}
 	}
 }

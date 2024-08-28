@@ -5,12 +5,12 @@ namespace GameZone.Controllers
 		ICategoriesService CategoriesServices,
 		IGamesService gamesServices) : Controller
 	{
-        public IActionResult Index()
-        {
-            return View(gamesServices.GetAll());
-        }
+		public IActionResult Index()
+		{
+			return View(gamesServices.GetAll());
+		}
 
-        [HttpGet]
+		[HttpGet]
 		public IActionResult Create()
 		{
 
@@ -20,6 +20,15 @@ namespace GameZone.Controllers
 				Devices = devicesServices.GetSelectList()
 			};
 			return View(viewModel);
+		}
+
+		public IActionResult Details(int id)
+		{
+			var game=gamesServices.getById(id);
+			if(game == null)
+				return NotFound();
+
+			return View(game);
 		}
 
 		[HttpPost]
@@ -36,6 +45,26 @@ namespace GameZone.Controllers
 
 
 			return RedirectToAction(nameof(Index));
+		}
+		[HttpGet]
+		public IActionResult Edit(int id)
+		{
+			var game = gamesServices.getById(id);
+			if (game == null)
+				return NotFound();
+
+			EditGameFormViewModel viewModel = new()
+			{
+				Id= id,
+				Name= game.Name,
+				Description= game.Description,
+				CategoryId= game.CategoryId,
+				SelectedDevices=game.Devices.Select(d=>d.DeviceId).ToList(),
+				Categories=CategoriesServices.GetSelectList(),
+				Devices=devicesServices.GetSelectList(),
+				currentCover=game.Cover
+			};
+			return View(viewModel);
 		}
 	}
 }
