@@ -1,4 +1,6 @@
-﻿namespace GameZone.Services
+﻿using GameZone.Models;
+
+namespace GameZone.Services
 {
 	public class GamesService : IGamesService
 	{
@@ -63,15 +65,14 @@
 			{
 				if (hasNewCover)
 				{
-					var cover = Path.Combine(_imagesPath, currentCover);
-					File.Delete(cover);
+					DeleteCover(currentCover);
 				}
 				return game;
 			}
 			else
 			{
-				var cover = Path.Combine(_imagesPath, game.Cover);
-				File.Delete(cover);
+				DeleteCover(game.Cover);
+
 				return null;
 			}
 
@@ -79,6 +80,31 @@
 
 		}
 
+		public bool Delete(int id)
+		{
+			var isDeleted = false;
+
+			var game = _dbContext.Games.Find(id);
+
+			if (game is null)
+				return isDeleted;
+
+			_dbContext.Remove(game);
+
+			var effecttedRows=_dbContext.SaveChanges();
+			if (effecttedRows > 0) 
+			{
+				isDeleted = true;
+				DeleteCover(game.Cover);
+			}
+
+			return isDeleted;
+		}
+		private void DeleteCover(string path)
+		{
+			var cover = Path.Combine(_imagesPath, path);
+			File.Delete(cover);
+		}
 		private async Task<string> SaveCover(IFormFile cover)
 		{
 			var coverName = $"{Guid.NewGuid()}{Path.GetExtension(cover.FileName)}";
@@ -91,5 +117,7 @@
 
 			return coverName;
 		}
+
+		
 	}
 }

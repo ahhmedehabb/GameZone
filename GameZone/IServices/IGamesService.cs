@@ -10,7 +10,7 @@
 		Task<Game?> Update(EditGameFormViewModel model);
 
 
-		
+		bool Delete(int id);
 
 	
 	}

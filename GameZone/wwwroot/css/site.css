@@ -21,6 +21,19 @@ body {
   margin-bottom: 60px;
 }
 
+/* start override sweetalert2*/
+
+.swal2-title, .swal2-html-container {
+    color:#fff !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background-color: #544B4A;
+}
+
+  
+/*End override sweeralert2*/
+
 /*start custom style*/
 .cover-preview {
     max-height: 500px;
